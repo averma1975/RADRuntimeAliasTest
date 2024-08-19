@@ -1,0 +1,139 @@
+openapi: 3.0.2
+info:
+  title: Example API
+  description: Example API with query parameters
+  version: 1.0.0
+servers:
+- url: http://DESKTOP-5PNNMFA.lan:5555/rad/SI564324.openapi302:openapi
+  description: This is a system generated server
+- url: https://api.example.com/v1
+paths:
+  /items:
+    get:
+      summary: Retrieve items
+      description: Retrieve a list of items with optional filters
+      parameters:
+      - name: param1
+        in: query
+        description: Category to filter items by
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: param2
+        in: query
+        description: Maximum number of items to return
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: param3
+        in: query
+        description: Number of items to skip before starting to collect the result
+          set
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A list of items
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        "400":
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /item:
+    get:
+      summary: Retrieve items
+      description: Retrieve a list of items with optional filters
+      parameters:
+      - name: param1
+        in: query
+        description: Category to filter items by
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: param2
+        in: query
+        description: Maximum number of items to return
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: param3
+        in: query
+        description: Number of items to skip before starting to collect the result
+          set
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A list of items
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Item'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        "400":
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        emptyString:
+          type: string
+        nullString:
+          type: string
+          default: hello
+        someString:
+          type: string
+        nullInt:
+          type: integer
+          format: int32
+        someInt:
+          type: integer
+          format: int32
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
